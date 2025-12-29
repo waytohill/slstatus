@@ -73,27 +73,20 @@ static const struct arg args[] = {
     //{ netspeed_rx,  "|↓:%s",        "wlp2s0" }, // 记得确认你的网卡名
     //{ netspeed_tx,  "|↑:%s]",        "wlp2s0" },
     //{ disk_perc,    "|D %s%%]",   "/" },
-    { run_command,  "[%s]",      "/home/nina/.scripts/netStatus.sh" },
+    //net work
+    { run_command,  "^c#8BE9FD^%s^d^ ",      "/home/nina/.scripts/netStatus.sh" },
 
+    // cpu ram temp state
+    { run_command,     "%s ",      "/home/nina/.scripts/cpu_hud.sh" },
+    { run_command,     "%s ",      "/home/nina/.scripts/ram_hud.sh" },
+    { temp,         "^c#FF79C6^🌡️ %s°C^d^ ",        "/sys/class/thermal/thermal_zone0/temp" },
+    // volume
+    { run_command,  "^c#F1FA8C^📢 %s^d^ ",        "amixer sget Master | awk -F\"[][]\" '/%/ { print $2 }' | head -n1" },
+    // battery
+    { run_command,  "%s ",       "/home/nina/.scripts/bat_state.sh" },
+    // weather
+    { run_command,  "%s ",       "/home/nina/.scripts/sl_weather.sh" },
 
-    // --- 胶囊 2: 核心硬件 (CPU | 温度 | 内存) ---
-    { cpu_perc,     "[CPU %s%%",      NULL },
-    { temp,         "|%s°C",        "/sys/class/thermal/thermal_zone0/temp" },
-    { ram_perc,     "|RAM %s%%]",   NULL },
-
-    
-    // --- 4. 键盘布局 (新增) ---
-    // 显示当前的输入法布局 (如 US, CN 等)
-    //{ keymap,       "[ %s]",     NULL },
-
-    // --- 胶囊 5: 系统状态 (音量 | 电池) ---
-    { run_command,  "[%s",        "amixer sget Master | awk -F\"[][]\" '/%/ { print $2 }' | head -n1" },
-    { battery_perc, "|%s%%",   "BAT0" },
-    { battery_state,"(%s)]",         "BAT0" },
-
-    { run_command,  "[%s]",       "cat /tmp/weather_cache | tr -d '\n'" },
-
-
-    // --- 胶囊 6: 日期时间 ---
-    { datetime,     "[%s]",      "%b-%d %a %H:%M:%S" },
+    // datetime
+    { datetime,     "^c#F8F8F2^%s ",      "%b-%d %a %H:%M:%S" },
 };
